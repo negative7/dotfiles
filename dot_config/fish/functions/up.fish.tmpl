@@ -1,4 +1,3 @@
-{{- if (contains "termux" .chezmoi.homeDir) }}
 function up --description 'updates packages'
     echo "Updating system..."
     pkg update
@@ -45,4 +44,3 @@ function up --description 'updates packages'
     echo "Updating fisher..."
     fisher update > /dev/null 2>&1
 end
-{{- end }}
