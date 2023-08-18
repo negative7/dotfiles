@@ -1,7 +1,7 @@
 function up --description 'updates packages'
     echo "Updating system..."
-    pkg update
-    pkg upgrade -y
+    sudo apt update
+    sudo apt upgrade -y
 
     echo "Updating kubectl..."
     curl -fsSL -o "$PREFIX/bin/kubectl" \
