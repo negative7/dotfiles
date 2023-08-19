@@ -5,13 +5,13 @@ function up --description 'updates packages'
 
     echo "Updating kubectl..."
     sudo curl -fsSL -o "$PREFIX/bin/kubectl" \
-        "https://dl.k8s.io/release/"(curl -sL https://dl.k8s.io/release/stable.txt)"/bin/linux/arm64/kubectl"
+        "https://dl.k8s.io/release/"(curl -sL https://dl.k8s.io/release/stable.txt)"/bin/linux/amd64/kubectl"
     sudo  chmod +x "$PREFIX/bin/kubectl"
 
     echo "Updating stern..."
     set stern_version (curl -sL "https://api.github.com/repos/stern/stern/releases/latest" | jq --raw-output ".tag_name" | sed '1s/^.//')
     sudo curl -fsSL -o "/tmp/stern.tar.gz" \
-      "https://github.com/stern/stern/releases/download/v"$stern_version"/stern_"$stern_version"_linux_arm64.tar.gz"
+      "https://github.com/stern/stern/releases/download/v"$stern_version"/stern_"$stern_version"_linux_amd64.tar.gz"
     sudo tar zxf "/tmp/stern.tar.gz" -C "/tmp"
     sudo mv "/tmp/stern" "$PREFIX/bin/stern"
     sudo chmod -x "$PREFIX/bin/stern"
@@ -19,7 +19,7 @@ function up --description 'updates packages'
     echo "Updating kustomize..."
     set kustomize_version (curl -sL "https://api.github.com/repos/kubernetes-sigs/kustomize/releases" | jq --raw-output "map(select(any(.assets[].name; contains(\"kustomize\"))))[0].tag_name" | sed 's/.*\///')
     sudo curl -fsSL -o "/tmp/kustomize.tar.gz" \
-      "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F"$kustomize_version"/kustomize_"$kustomize_version"_linux_arm64.tar.gz"
+      "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F"$kustomize_version"/kustomize_"$kustomize_version"_linux_amd64.tar.gz"
     sudo tar zxf "/tmp/kustomize.tar.gz" -C "/tmp"
     sudo mv "/tmp/kustomize" "$PREFIX/bin/kustomize"
     sudo chmod +x "$PREFIX/bin/kustomize"
@@ -27,7 +27,7 @@ function up --description 'updates packages'
     echo "Updating calicoctl..."
     set calicoctl_version (curl -sL "https://api.github.com/repos/projectcalico/calicoctl/releases/latest" | jq --raw-output ".tag_name")
     sudo curl -fsSL -o "$PREFIX/bin/calicoctl" \
-      "https://github.com/projectcalico/calicoctl/releases/download/"$calicoctl_version"/calicoctl-linux-arm64"
+      "https://github.com/projectcalico/calicoctl/releases/download/"$calicoctl_version"/calicoctl-linux-amd64"
     sudo chmod +x "$PREFIX/bin/calicoctl"
 
     echo "Updating flux..."
@@ -36,7 +36,7 @@ function up --description 'updates packages'
     echo "Updating taskfile..."
     set taskfile_version (curl -sL "https://api.github.com/repos/go-task/task/releases/latest" | jq --raw-output ".tag_name" | sed '1s/^.//')
     sudo curl -fsSL -o "/tmp/taskfile.tar.gz" \
-      "https://github.com/go-task/task/releases/download/v"$taskfile_version"/task_linux_arm64.tar.gz"
+      "https://github.com/go-task/task/releases/download/v"$taskfile_version"/task_linux_amd64.tar.gz"
     sudo tar zxf "/tmp/taskfile.tar.gz" -C "/tmp"
     sudo mv "/tmp/task" "$PREFIX/bin/task"
     sudo chmod +x "$PREFIX/bin/task"
