@@ -4,11 +4,6 @@ Host *
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519
   IdentityFile ~/.ssh/id_rsa
-{{- if (eq .chezmoi.os "darwin") }}
-  IgnoreUnknown UseKeychain
-  UseKeychain yes
-{{- end }}
-
 Host 192.168.*.*
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
@@ -18,3 +13,29 @@ Host 172.16.*.*
 Host 10.*.*.*
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
+Host kharkiv
+    HostName 10.2.0.21
+    User worker
+Host vinnytsia
+    HostName 10.2.0.22
+    User worker
+Host dnipro
+    HostName 10.2.0.23
+    User worker
+Host kyiv
+    HostName 10.2.0.24
+    User worker
+Host freenas
+    HostName 10.2.0.10
+    User root
+Host unifi
+    HostName 10.0.1.1
+    User root
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
+Host pikvm
+    Hostname 10.2.0.6
+    User root
+Host ender
+    Hostname 10.0.1.15
+    User pi

@@ -8,14 +8,20 @@ function up --description 'updates packages'
         "https://dl.k8s.io/release/"(curl -sL https://dl.k8s.io/release/stable.txt)"/bin/linux/amd64/kubectl"
     sudo  chmod +x "$PREFIX/bin/kubectl"
 
+    echo "Updating cnpg..."
+    sudo curl -sSfL \
+        https://github.com/cloudnative-pg/cloudnative-pg/raw/main/hack/install-cnpg-plugin.sh | \
+    sudo sh -s -- -b /usr/local/bin
+
+
     echo "Updating stern..."
     set stern_version (curl -sL "https://api.github.com/repos/stern/stern/releases/latest" | jq --raw-output ".tag_name" | sed '1s/^.//')
     sudo curl -fsSL -o "/tmp/stern.tar.gz" \
       "https://github.com/stern/stern/releases/download/v"$stern_version"/stern_"$stern_version"_linux_amd64.tar.gz"
     sudo tar zxf "/tmp/stern.tar.gz" -C "/tmp"
     sudo mv "/tmp/stern" "$PREFIX/bin/stern"
-    sudo chmod -x "$PREFIX/bin/stern"
-
+    sudo chmod -x "$PREFIX/bin/stern"    
+    
     echo "Updating kustomize..."
     set kustomize_version (curl -sL "https://api.github.com/repos/kubernetes-sigs/kustomize/releases" | jq --raw-output "map(select(any(.assets[].name; contains(\"kustomize\"))))[0].tag_name" | sed 's/.*\///')
     sudo curl -fsSL -o "/tmp/kustomize.tar.gz" \

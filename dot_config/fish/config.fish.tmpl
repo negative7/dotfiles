@@ -47,3 +47,7 @@ end
 if type -q zoxide
     zoxide init fish | source
 end
+
+if type -q kubectl
+    kubectl completion fish | source
+end
