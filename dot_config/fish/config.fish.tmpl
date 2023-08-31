@@ -51,3 +51,5 @@ end
 if type -q kubectl
     kubectl completion fish | source
 end
+
+set -gx PATH $PATH $HOME/.krew/bin
